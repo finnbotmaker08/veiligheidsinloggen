@@ -1,0 +1,294 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inloggen - Google Accounts</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Google Sans', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: #121212;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #e3e3e3;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 450px;
+            padding: 40px;
+            border: 1px solid #3c4043;
+            border-radius: 8px;
+            background: #1e1e1e;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+
+        .logo-container {
+            margin-bottom: 24px;
+        }
+
+        .google-logo {
+            width: 75px;
+            height: auto;
+        }
+
+        h1 {
+            font-size: 24px;
+            font-weight: 400;
+            line-height: 1.3333;
+            margin-bottom: 8px;
+            color: #e3e3e3;
+        }
+
+        .subtitle {
+            font-size: 16px;
+            font-weight: 400;
+            line-height: 1.5;
+            margin-bottom: 32px;
+            color: #9aa0a6;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 24px;
+            text-align: left;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 16px;
+            font-size: 16px;
+            border: 1px solid #5f6368;
+            border-radius: 4px;
+            outline: none;
+            background: transparent;
+            color: #e3e3e3;
+            transition: border-color 0.2s;
+        }
+
+        .input-field:focus {
+            border: 2px solid #8ab4f8;
+            padding: 15px;
+        }
+
+        .input-label {
+            position: absolute;
+            left: 16px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: #1e1e1e;
+            padding: 0 4px;
+            color: #9aa0a6;
+            font-size: 16px;
+            pointer-events: none;
+            transition: 0.2s ease all;
+        }
+
+        .input-field:focus ~ .input-label,
+        .input-field:not(:placeholder-shown) ~ .input-label {
+            top: 0;
+            font-size: 12px;
+            color: #8ab4f8;
+        }
+
+        .button-container {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+        }
+
+        .next-btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 10px 24px;
+            font-size: 14px;
+            font-weight: 500;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.2s;
+        }
+
+        .next-btn:hover {
+            background-color: #1b66c9;
+        }
+
+        /* Scherm 2 (Wachtwoord) */
+        #password-step {
+            display: none;
+        }
+
+        /* Scherm 3 (Educatief Resultaat) */
+        #phishing-screen {
+            display: none;
+            text-align: left;
+        }
+
+        #phishing-screen h1 {
+            color: #ff6b6b;
+            font-size: 26px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .phishing-desc {
+            color: #bdc1c6;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .signals-title {
+            font-weight: bold;
+            color: #e3e3e3;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+
+        .signals-list {
+            list-style-type: disc;
+            padding-left: 20px;
+            color: #bdc1c6;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 24px;
+        }
+
+        .signals-list li {
+            margin-bottom: 8px;
+        }
+
+        .signals-list strong {
+            color: #e3e3e3;
+        }
+
+        .restart-container {
+            text-align: center;
+        }
+
+        .restart-btn {
+            background: transparent;
+            border: 1px solid #5f6368;
+            color: #e3e3e3;
+            padding: 10px 20px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.2s;
+        }
+
+        .restart-btn:hover {
+            background: rgba(255,255,255,0.05);
+        }
+
+        .groetjes-finn {
+            margin-top: 20px;
+            text-align: center;
+            font-weight: bold;
+            color: #8ab4f8;
+            font-size: 14px;
+            letter-spacing: 1px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- STAP 1: E-mailadres -->
+    <div class="container" id="email-step">
+        <div class="logo-container">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" class="google-logo">
+        </div>
+
+        <h1>Inloggen</h1>
+        <p class="subtitle">Doorgaan bij "Google"</p>
+
+        <form id="form-email" onsubmit="goToPassword(event)">
+            <div class="input-group">
+                <input type="text" id="email-input" class="input-field" placeholder=" " required>
+                <label class="input-label">E-mailadres of telefoonnummer</label>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="next-btn">Volgende</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- STAP 2: Wachtwoord -->
+    <div class="container" id="password-step">
+        <div class="logo-container">
+            <img src="https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_92x30dp.png" alt="Google" class="google-logo">
+        </div>
+
+        <h1>Welkom</h1>
+        <p class="subtitle">Voer je wachtwoord in</p>
+
+        <form id="form-password" onsubmit="showPhishingResult(event)">
+            <div class="input-group">
+                <input type="password" id="password-input" class="input-field" placeholder=" " required>
+                <label class="input-label">Wachtwoord</label>
+            </div>
+            <div class="button-container">
+                <button type="submit" class="next-btn">Inloggen</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- STAP 3: Educatief/Phishing Scherm -->
+    <div class="container" id="phishing-screen">
+        <div style="text-align: center; margin-bottom: 16px;">
+            <span style="font-size: 32px;">🎣</span>
+        </div>
+        <h1>Dit was phishing — nep!</h1>
+        <p class="phishing-desc">
+            Dit leek op het Google-inlogscherm, maar het was een demo. In het echt was dit precies de manier waarop je gegevens gestolen worden.
+        </p>
+
+        <div class="signals-title">Signalen die je had moeten tegenkomen:</div>
+        <ul class="signals-list">
+            <li>Controleer altijd het <strong>domein in de adresbalk</strong> — niet accounts.google.com? Dan is het nep.</li>
+            <li>Onverwachte inlogverzoeken via een link (chat, mail) zijn verdacht.</li>
+            <li>Phishingpagina's missen vaak kleine details (certificaat, lay-out, typefouten).</li>
+            <li>Gebruik waar mogelijk <strong>wachtwoordmanagers</strong> — die vullen alleen in op het echte domein.</li>
+            <li>Zet <strong>tweestapsverificatie</strong> aan, zodat een gestolen wachtwoord alleen niet genoeg is.</li>
+        </ul>
+
+        <div class="restart-container">
+            <button class="restart-btn" onclick="resetDemo()">Opnieuw bekijken</button>
+        </div>
+
+        <div class="groetjes-finn">
+            GROETJES FINN
+        </div>
+    </div>
+
+    <script>
+        function goToPassword(event) {
+            event.preventDefault();
+            document.getElementById('email-step').style.display = 'none';
+            document.getElementById('password-step').style.display = 'block';
+        }
+
+        function showPhishingResult(event) {
+            event.preventDefault();
+            document.getElementById('password-step').style.display = 'none';
+            document.getElementById('phishing-screen').style.display = 'block';
+        }
+
+        function resetDemo() {
+            document.getElementById('form-email').reset();
+            document.getElementById('form-password').reset();
+            document.getElementById('phishing-screen').style.display = 'none';
+            document.getElementById('email-step').style.display = 'block';
+        }
+    </script>
+</body>
+</html>
